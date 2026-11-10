@@ -82,3 +82,4 @@ When `DELETE /holds/{holdId}` is called with a matching `X-Student-Id`:
 - If the hold is `HELD`, its status is updated to `CANCELLED`.
 - Because active held seats are counted where `Status == 'HELD'`, changing to `CANCELLED` immediately releases the seat back to available seats.
 - Returns `204 No Content` as specified in the contract.
+

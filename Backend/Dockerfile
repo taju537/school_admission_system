@@ -20,3 +20,4 @@ ENV HOLD_DURATION_SECONDS=600
 EXPOSE 8080
 
 ENTRYPOINT ["dotnet", "SchoolAdmission.Api.dll"]
+

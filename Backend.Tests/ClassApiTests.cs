@@ -70,3 +70,4 @@ public class ClassApiTests
         Assert.Contains(list, c => c.Name == "Class 6 - Day");
     }
 }
+

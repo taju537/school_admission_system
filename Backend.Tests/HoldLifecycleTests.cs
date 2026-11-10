@@ -121,3 +121,4 @@ public class HoldLifecycleTests
         Assert.Equal(30, state2.AvailableSeats);
     }
 }
+

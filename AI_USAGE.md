@@ -37,3 +37,4 @@ In accordance with §1.7 of the assignment requirements, this document outlines 
 3. **Frontend Expiration Without Page Reload**:
    - *Requirement §1.5*: "মেয়াদ শেষ হলে page reload ছাড়াই আবেদন EXPIRED দেখাবে, আর 'ভর্তি ফি দিন' button বন্ধ হবে।"
    - *Correction applied*: Engineered the `useCountdown` hook with a reactive expiration callback that immediately switches the local hold card state to `EXPIRED` upon reaching zero, instantly disabling the payment button without requiring any network refetch or page reload.
+

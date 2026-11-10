@@ -109,3 +109,4 @@ School_admission_system/
 ├── AI_USAGE.md                 # AI usage disclosure per §1.7
 └── README.md                   # This file
 ```
+

@@ -48,3 +48,4 @@ public class ClassResponse
     [JsonPropertyName("availableSeats")]
     public int AvailableSeats { get; set; }
 }
+

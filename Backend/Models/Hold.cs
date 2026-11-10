@@ -14,3 +14,4 @@ public class Hold
     // Navigation property
     public SchoolClass? Class { get; set; }
 }
+

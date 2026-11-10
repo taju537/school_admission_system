@@ -11,3 +11,4 @@ public class SchoolClass
     // Navigation property
     public ICollection<Hold> Holds { get; set; } = new List<Hold>();
 }
+

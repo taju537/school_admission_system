@@ -89,3 +89,4 @@ export function Navbar({ activeTab, setActiveTab }) {
     </header>
   );
 }
+

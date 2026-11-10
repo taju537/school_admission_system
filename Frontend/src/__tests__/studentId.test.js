@@ -46,3 +46,4 @@ test('Validates 17-digit birth registration number', () => {
   const res5 = validateStudentId(empty);
   assert.equal(res5.isValid, false);
 });
+

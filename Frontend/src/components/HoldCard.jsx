@@ -122,3 +122,4 @@ export function HoldCard({ hold, onConfirm, onCancel, confirming, cancelling }) 
     </div>
   );
 }
+

@@ -152,7 +152,7 @@ export function AdminDashboard() {
                 <PlusIcon size={18} /> নতুন ক্লাস ও শিফট তৈরি করুন
               </h2>
               <p className="section-subtitle">
-                POST /classes এপিআই কল করে নতুন ক্লাস এবং আসন সংখ্যা নির্ধারণ করুন।
+              নতুন ক্লাস এবং আসন সংখ্যা নির্ধারণ করুন।
               </p>
             </div>
           </div>
@@ -171,9 +171,6 @@ export function AdminDashboard() {
                 onChange={(e) => setName(e.target.value)}
                 required
               />
-              <span className="form-helper">
-                নিয়ম অনুযায়ী প্রতিটি শিফট আলাদা একটি ক্লাস হিসেবে তৈরি হবে।
-              </span>
             </div>
 
             {/* Quick Presets */}
@@ -208,9 +205,7 @@ export function AdminDashboard() {
                 onChange={(e) => setTotalSeats(e.target.value)}
                 required
               />
-              <span className="form-helper">
-                ক্লাসটির সর্বমোট ছাত্রছাত্রী ধারণক্ষমতা।
-              </span>
+            
             </div>
 
             <button
@@ -321,3 +316,4 @@ export function AdminDashboard() {
     </div>
   );
 }
+

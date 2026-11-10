@@ -79,14 +79,14 @@ export function HoldLookup() {
         <SearchIcon size={18} /> নির্দিষ্ট আবেদন অনুসন্ধান (Direct Hold Lookup)
       </h3>
       <p className="card-subdesc">
-        GET /holds/{'{holdId}'} এপিআই পরীক্ষার জন্য যেকোনো হোল্ড আইডি দিয়ে সরাসরি বর্তমান অবস্থা যাচাই করুন।
+       যেকোনো হোল্ড আইডি দিয়ে সরাসরি বর্তমান অবস্থা যাচাই করুন।
       </p>
 
       <form onSubmit={handleSearch} className="lookup-form">
         <input
           type="text"
           className="text-input"
-          placeholder="হোল্ড আইডি লিখুন (যেমন: h_789)"
+          placeholder="যেমন: h_789"
           value={lookupId}
           onChange={(e) => setLookupId(e.target.value)}
         />
@@ -99,3 +99,4 @@ export function HoldLookup() {
     </div>
   );
 }
+

@@ -1,7 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 
 const STORAGE_KEY = 'school_admission_student_id';
-export const DEMO_STUDENT_ID = '20152691234567890'; // Exact ID from assignment brief §1.4
 
 const StudentContext = createContext(null);
 
@@ -88,3 +87,4 @@ export function useStudent() {
   }
   return ctx;
 }
+

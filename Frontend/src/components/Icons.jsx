@@ -136,3 +136,4 @@ export function FileTextIcon({ className = 'w-5 h-5', size = 20 }) {
     </svg>
   );
 }
+

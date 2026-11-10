@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useStudent, DEMO_STUDENT_ID } from '../context/StudentContext';
+import { useStudent} from '../context/StudentContext';
 import { UserIcon, CheckCircleIcon, AlertCircleIcon, TrashIcon } from './Icons';
 import { useNotification } from '../context/NotificationContext';
 
@@ -13,7 +13,6 @@ export function StudentIdBar({ onIdChanged }) {
     inputValidation,
     applyStudentId,
     clearStudentId,
-    setDemoId,
   } = useStudent();
 
   const { success, error, info } = useNotification();
@@ -39,13 +38,6 @@ export function StudentIdBar({ onIdChanged }) {
     if (onIdChanged) onIdChanged('');
   };
 
-  const handleUseDemo = () => {
-    setDemoId(DEMO_STUDENT_ID);
-    setIsEditing(false);
-    success(`নমুনা শিক্ষার্থী আইডি (${DEMO_STUDENT_ID}) সেট করা হয়েছে!`);
-    if (onIdChanged) onIdChanged(DEMO_STUDENT_ID);
-  };
-
   return (
     <div className="student-id-card">
       <div className="student-id-header">
@@ -56,21 +48,9 @@ export function StudentIdBar({ onIdChanged }) {
           <div>
             <h2 className="student-card-title">শিক্ষার্থীর পরিচয় (Student ID)</h2>
             <p className="student-card-subtitle">
-              কোনো রেজিস্ট্রেশন বা পাসওয়ার্ড প্রয়োজন নেই। শিক্ষার্থীর ১৭ অঙ্কের জন্ম নিবন্ধন নম্বর প্রবেশ করান।
+            শিক্ষার্থীর ১৭ অঙ্কের জন্ম নিবন্ধন নম্বর প্রবেশ করান।
             </p>
           </div>
-        </div>
-
-        {/* Quick Demo Button */}
-        <div className="demo-btn-wrapper">
-          <button
-            type="button"
-            className="btn-demo-quick"
-            onClick={handleUseDemo}
-            title="Assignment PDF-এ উল্লেখিত ১৭ অঙ্কের নমুনা আইডি ব্যবহার করুন"
-          >
-            ⚡ নমুনা আইডি ব্যবহার করুন (Demo ID)
-          </button>
         </div>
       </div>
 
@@ -83,10 +63,10 @@ export function StudentIdBar({ onIdChanged }) {
             </span>
             <div className="student-id-display">
               <code>{studentId}</code>
-              <span className="digit-tag">১৭ অঙ্ক</span>
+             
             </div>
             <p className="storage-note">
-              💾 ব্রাউজারে সংরক্ষিত আছে — পেজ রিলোড বা বন্ধ করলেও আপনার আবেদন অক্ষত থাকবে।
+              ব্রাউজারে সংরক্ষিত আছে
             </p>
           </div>
 
@@ -117,11 +97,11 @@ export function StudentIdBar({ onIdChanged }) {
                 className={`text-input student-input ${
                   inputVal && !inputValidation.isValid ? 'input-error' : ''
                 } ${inputValidation.isValid ? 'input-success' : ''}`}
-                placeholder="উদাহরণ: 20152691234567890 (১৭ অঙ্কের নম্বর)"
+                placeholder="উদাহরণ: 20152691234567890"
                 value={inputVal}
                 maxLength={17}
                 onChange={(e) => {
-                  const val = e.target.value.replace(/\D/g, ''); // digits only
+                  const val = e.target.value.replace(/\D/g, ''); 
                   setInputVal(val);
                 }}
                 autoFocus
@@ -178,3 +158,4 @@ export function StudentIdBar({ onIdChanged }) {
     </div>
   );
 }
+

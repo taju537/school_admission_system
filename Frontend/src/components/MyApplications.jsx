@@ -88,7 +88,7 @@ export function MyApplications({ onHoldsUpdated }) {
             <FileTextIcon size={20} /> আমার আবেদনসমূহ (My Applications)
           </h2>
           <p className="section-subtitle">
-            শিক্ষার্থী ({studentId})-এর সকল আবেদন, বর্তমান স্থিতি এবং ফি প্রদানের সময়সীমা
+            শিক্ষার্থী {studentId}-এর সকল আবেদন, বর্তমান স্থিতি এবং ফি প্রদানের সময়সীমা
           </p>
         </div>
         <button
@@ -161,3 +161,4 @@ export function MyApplications({ onHoldsUpdated }) {
     </div>
   );
 }
+

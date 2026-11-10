@@ -63,3 +63,4 @@ export function useClassesPolling(intervalMs = 4000) {
     refresh: () => fetchClasses(true),
   };
 }
+

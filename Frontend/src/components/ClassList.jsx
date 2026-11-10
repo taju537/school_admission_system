@@ -242,3 +242,4 @@ export function ClassList({ classes, loading, refreshing, onRefresh, onHoldCreat
     </div>
   );
 }
+

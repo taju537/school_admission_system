@@ -4,4 +4,21 @@ import { defineConfig } from 'vite'
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
+  server: {
+    port: 5173,
+    proxy: {
+      '/classes': {
+        target: 'http://localhost:8080',
+        changeOrigin: true,
+      },
+      '/holds': {
+        target: 'http://localhost:8080',
+        changeOrigin: true,
+      },
+      '/me': {
+        target: 'http://localhost:8080',
+        changeOrigin: true,
+      },
+    },
+  },
 })

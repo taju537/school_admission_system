@@ -80,6 +80,8 @@ using (var scope = app.Services.CreateScope())
 }
 
 // 7. Configure Pipeline
+app.UseCors("AllowAll");
+
 app.UseMiddleware<GlobalExceptionMiddleware>();
 
 app.UseSwagger();
@@ -89,10 +91,9 @@ app.UseSwaggerUI(c =>
     c.RoutePrefix = "swagger";
 });
 
-app.UseCors("AllowAll");
-
 app.UseAuthorization();
 
 app.MapControllers();
 
 app.Run();
+

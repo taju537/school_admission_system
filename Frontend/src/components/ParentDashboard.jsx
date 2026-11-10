@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { StudentIdBar } from './StudentIdBar';
 import { MyApplications } from './MyApplications';
 import { ClassList } from './ClassList';
@@ -10,15 +10,14 @@ export function ParentDashboard() {
   const [existingHolds, setExistingHolds] = useState([]);
   const [myApplicationsRefreshTrigger, setMyApplicationsRefreshTrigger] = useState(0);
 
-  const handleHoldCreated = () => {
-    // Refresh both classes and my applications
+  const handleHoldCreated = useCallback(() => {
     refresh();
     setMyApplicationsRefreshTrigger((prev) => prev + 1);
-  };
+  }, [refresh]);
 
-  const handleHoldsUpdated = (holdsList) => {
+  const handleHoldsUpdated = useCallback((holdsList) => {
     setExistingHolds(holdsList);
-  };
+  }, []);
 
   return (
     <div className="dashboard-content parent-dashboard">
@@ -46,4 +45,3 @@ export function ParentDashboard() {
     </div>
   );
 }
-

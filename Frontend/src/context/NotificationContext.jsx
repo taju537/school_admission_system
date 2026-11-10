@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useCallback } from 'react';
+import React, { createContext, useContext, useState, useCallback, useMemo } from 'react';
 
 const NotificationContext = createContext(null);
 
@@ -31,18 +31,21 @@ export function NotificationProvider({ children }) {
   const warning = useCallback((msg, dur) => notify(msg, 'warning', dur), [notify]);
   const info = useCallback((msg, dur) => notify(msg, 'info', dur), [notify]);
 
+  const value = useMemo(
+    () => ({
+      notifications,
+      notify,
+      success,
+      error,
+      warning,
+      info,
+      dismiss,
+    }),
+    [notifications, notify, success, error, warning, info, dismiss]
+  );
+
   return (
-    <NotificationContext.Provider
-      value={{
-        notifications,
-        notify,
-        success,
-        error,
-        warning,
-        info,
-        dismiss,
-      }}
-    >
+    <NotificationContext.Provider value={value}>
       {children}
     </NotificationContext.Provider>
   );
@@ -55,4 +58,3 @@ export function useNotification() {
   }
   return ctx;
 }
-

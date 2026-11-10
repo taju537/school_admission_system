@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { admissionClient } from '../services/admissionClient';
 import { useStudent } from '../context/StudentContext';
 import { useNotification } from '../context/NotificationContext';
@@ -13,6 +13,12 @@ export function MyApplications({ onHoldsUpdated }) {
   const [loading, setLoading] = useState(false);
   const [actionInProgress, setActionInProgress] = useState(null); // { type: 'confirm'|'cancel', id }
 
+  const onHoldsUpdatedRef = useRef(onHoldsUpdated);
+  onHoldsUpdatedRef.current = onHoldsUpdated;
+
+  const errorRef = useRef(error);
+  errorRef.current = error;
+
   const fetchMyHolds = useCallback(async () => {
     if (!isValid || !studentId) {
       setHolds([]);
@@ -21,16 +27,20 @@ export function MyApplications({ onHoldsUpdated }) {
     setLoading(true);
     try {
       const data = await admissionClient.getMyHolds(studentId);
-      setHolds(Array.isArray(data) ? data : []);
-      if (onHoldsUpdated) onHoldsUpdated(data);
+      const safeData = Array.isArray(data) ? data : [];
+      setHolds(safeData);
+      if (onHoldsUpdatedRef.current) {
+        onHoldsUpdatedRef.current(safeData);
+      }
     } catch (err) {
       console.error('Error fetching student holds:', err);
-      // Friendly message
-      error(err.message || 'আপনার আবেদনের তালিকা লোড করা যায়নি');
+      if (errorRef.current) {
+        errorRef.current(err.message || 'আপনার আবেদনের তালিকা লোড করা যায়নি');
+      }
     } finally {
       setLoading(false);
     }
-  }, [studentId, isValid, error, onHoldsUpdated]);
+  }, [studentId, isValid]);
 
   useEffect(() => {
     fetchMyHolds();
@@ -88,7 +98,7 @@ export function MyApplications({ onHoldsUpdated }) {
             <FileTextIcon size={20} /> আমার আবেদনসমূহ (My Applications)
           </h2>
           <p className="section-subtitle">
-            শিক্ষার্থী {studentId}-এর সকল আবেদন, বর্তমান স্থিতি এবং ফি প্রদানের সময়সীমা
+            শিক্ষার্থী ({studentId})-এর সকল আবেদন, বর্তমান স্থিতি এবং ফি প্রদানের সময়সীমা
           </p>
         </div>
         <button
@@ -161,4 +171,3 @@ export function MyApplications({ onHoldsUpdated }) {
     </div>
   );
 }
-

@@ -3,6 +3,9 @@ import { mockApi } from './mockApi';
 
 const STORAGE_MODE_KEY = 'school_admission_client_mode'; // 'live' | 'mock' | 'auto'
 
+let lastUnreachableTimestamp = 0;
+const OFFLINE_RETRY_COOLDOWN_MS = 10000; // 10-second cooldown to prevent console log floods
+
 export const admissionClient = {
   getMode() {
     return localStorage.getItem(STORAGE_MODE_KEY) || 'auto';
@@ -13,7 +16,13 @@ export const admissionClient = {
   },
 
   async isBackendLive() {
-    return api.checkBackendHealth();
+    const live = await api.checkBackendHealth();
+    if (live) {
+      lastUnreachableTimestamp = 0;
+    } else {
+      lastUnreachableTimestamp = Date.now();
+    }
+    return live;
   },
 
   async executeWithFallback(apiFn, mockFn) {
@@ -22,17 +31,29 @@ export const admissionClient = {
       return mockFn();
     }
 
+    // If recently failed and still in auto mode, skip network request during cooldown
+    const isRecentlyOffline =
+      lastUnreachableTimestamp > 0 &&
+      Date.now() - lastUnreachableTimestamp < OFFLINE_RETRY_COOLDOWN_MS;
+
+    if (forcedMode === 'auto' && isRecentlyOffline) {
+      return mockFn();
+    }
+
     try {
-      return await apiFn();
+      const result = await apiFn();
+      lastUnreachableTimestamp = 0; // reset on success
+      return result;
     } catch (err) {
-      // If network failure / connection refused and in auto mode, fallback to mock with warning
+      // If network failure / connection refused and in auto mode, fallback to mock
       if (
         forcedMode === 'auto' &&
         (err.status === 0 ||
           err.message?.includes('সংযোগ স্থাপন করা যায়নি') ||
           err.message?.includes('Failed to fetch'))
       ) {
-        console.warn('Backend server unreachable, falling back to local simulation mode:', err.message);
+        lastUnreachableTimestamp = Date.now();
+        console.warn('Backend server unreachable at http://localhost:8080. Operating in offline simulation mode.');
         return mockFn();
       }
       throw err;
@@ -95,4 +116,3 @@ export const admissionClient = {
     );
   },
 };
-
